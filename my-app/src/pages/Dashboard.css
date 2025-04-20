@@ -1,0 +1,128 @@
+.dashboard {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+header h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.stat-box {
+  background-color: #f4f4f4;
+  padding: 20px;
+  width: 30%;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.stat-box h4 {
+  font-size: 18px;
+}
+
+.stat-box p {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.dashboard-nav {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.dashboard-nav button {
+  padding: 12px 25px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  padding: 10px 15px;
+  cursor: pointer;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.tabs button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.products-list, .pickup-history {
+  margin-top: 20px;
+}
+
+.products-list h2, .pickup-history h2 {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.search-input, .status-filter, .date-filter {
+  padding: 8px;
+  margin-bottom: 10px;
+  width: 200px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.product-items, .pickup-items {
+  list-style-type: none;
+  padding: 0;
+}
+
+.product-item, .pickup-item {
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.product-item h3, .pickup-item p {
+  margin: 5px 0;
+}
+
+.btn {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}

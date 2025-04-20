@@ -20,16 +20,24 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const payload = { ...formData, role };
-      const res = await axios.post('http://localhost:5000/api/auth/signup', payload);
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role: role
+      };
+
+      const res = await axios.post('http://localhost:5000/api/auth/signup', payload, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
 
       alert('Signup successful!');
-
-      // Optional: Redirect to login after successful signup
       navigate('/login');
 
     } catch (err) {
-      console.error('Signup error:', err);
+      console.error('Signup error:', err.response?.data || err.message);
       alert(err.response?.data?.message || 'Signup failed. Please try again.');
     }
   };

@@ -3,7 +3,7 @@ import axios from 'axios';
 import './Auth.css';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ setUser }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const navigate = useNavigate();
 
@@ -14,25 +14,40 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', formData);
-      const { token, user } = res.data;
-  
-      if (!user?.role) {
-        throw new Error("User role not found in response.");
-      }
-  
-      // Save token and role if needed
-      // localStorage.setItem('token', token);
-      // localStorage.setItem('role', user.role);
-  
+      const payload = {
+        email: formData.email,
+        password: formData.password
+      };
+
+      // Login request
+      const res = await axios.post('http://localhost:5000/api/auth/login', payload);
+      const token = res.data.token;
+      localStorage.setItem('token', token);
+
+      // Fetch profile
+      const profileRes = await axios.get('http://localhost:5000/api/Profile', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const userData = profileRes.data;
+      setUser(userData); // send user to App
+
       alert('Login successful!');
-      navigate('/');
+
+      // Redirect based on role
+      if (userData.role === 'admin') {
+        navigate('/admin');
+      } else if (userData.role === 'recycler') {
+        navigate('/recycler-panel');
+      } else {
+        navigate('/');
+      }
+
     } catch (err) {
       console.error('Login error:', err);
-      alert(err.response?.data?.message || err.message || 'Login failed. Please try again.');
+      alert(err.response?.data?.message || 'Login failed.');
     }
   };
-  
 
   return (
     <div className="auth-page">

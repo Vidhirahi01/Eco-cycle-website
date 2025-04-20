@@ -1,0 +1,44 @@
+.admin-panel {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .admin-panel h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .pickup-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .pickup-card {
+    flex: 1 1 45%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    background: #f9f9f9;
+  }
+  
+  .pickup-card p {
+    margin: 5px 0;
+  }
+  
+  .pickup-card input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+  }
+  
+  @media (max-width: 600px) {
+    .pickup-card {
+      flex: 1 1 100%;
+    }
+  }
+  

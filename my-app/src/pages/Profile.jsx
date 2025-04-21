@@ -16,15 +16,33 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('token');
+        if (!token) {
+          alert('You are not logged in');
+          return;
+        }
+
+        console.log("Token:", token); // Log token to ensure it's fetched correctly
+        
         const res = await axios.get('http://localhost:5000/api/user/me', {
           headers: { Authorization: `Bearer ${token}` }
         });
-        setFormData({
-          name: res.data.name,
-          email: res.data.email,
-          role: res.data.role,
-          password: ''
-        });
+
+        console.log("API Response:", res); // Log API response
+        
+        // Make sure we're accessing data correctly based on your API response
+        const userData = res.data.user; // Adjust if the response structure is different
+        
+        if (userData) {
+          setFormData({
+            name: userData.name,
+            email: userData.email,
+            role: userData.role,
+            password: ''
+          });
+        } else {
+          console.error("User data not found in response");
+          alert('Error loading profile');
+        }
       } catch (err) {
         console.error('Failed to load profile:', err);
         alert('Error loading profile');
@@ -43,12 +61,33 @@ const Profile = () => {
   const handleUpdate = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put('http://localhost:5000/api/user/update', {
-        name: formData.name,
-        password: formData.password
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const updateData = {
+        name: formData.name
+      };
+      
+      // Only include password if it was changed
+      if (formData.password) {
+        updateData.password = formData.password;
+      }
+
+      const response = await axios.put('http://localhost:5000/api/user/update', 
+        updateData, 
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+
+      console.log("Update Response:", response); // Log the response of update
+      
+      // Update local state with returned user data
+      const updatedUser = response.data.user;
+      setFormData(prev => ({
+        ...prev,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        role: updatedUser.role,
+        password: ''
+      }));
 
       alert('Profile updated successfully!');
       setEditMode(false);

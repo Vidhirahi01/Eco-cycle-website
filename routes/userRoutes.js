@@ -1,18 +1,16 @@
-// routes/userRoutes.js
-import express from "express";
-import { verifyToken } from "../middleware/authMiddleware.js";
+import express from 'express';
 import {
   getMyProfile,
   updateProfile,
   deleteAccount,
-} from "../controllers/userController.js";
+} from '../controller/userController.js';
+import { verifyToken } from '../middleware/authmiddleware.js';
 
 const router = express.Router();
 
+// Protected route
 router.get("/me", verifyToken, getMyProfile);
-
-router.put("/update", verifyToken, updateProfile);
-
-router.delete("/delete", verifyToken, deleteAccount);
+router.put("/me", verifyToken, updateProfile);
+router.delete("/me", verifyToken, deleteAccount);
 
 export default router;
